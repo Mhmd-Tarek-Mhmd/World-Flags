@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-screen;
+    @apply font-sans font-semibold;
+    @apply bg-[hsl(0,0%,98%)] dark:bg-[hsl(207,26%,17%)];
+    @apply text-[hsl(200,15%,8%)] dark:text-[hsl(0,0%,100%)];
+  }
+
+  h1,
+  h2 {
+    @apply font-extrabold;
+  }
+}
+
+@layer utilities {
+  .bg {
+    @apply bg-[hsl(0,0%,100%)] dark:bg-[hsl(209,23%,22%)];
+  }
+  .shadow-xy-md {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 -4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1),
+      0 -2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+}
