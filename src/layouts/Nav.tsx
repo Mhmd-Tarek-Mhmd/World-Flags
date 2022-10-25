@@ -26,7 +26,7 @@ export default Nav;
 const HomeNav = ({ data, setCountries }: NavProps): JSX.Element => (
   <div className="text-2xl md:text-sm pt-12 pb-16 md:pb-12 flex flex-wrap gap-20 md:gap-0 md:justify-between">
     <SearchBar data={data} setCountries={setCountries} />
-    <FilterBox />
+    <FilterBox data={data} setCountries={setCountries} />
   </div>
 );
 const StateNav = (): JSX.Element => (

@@ -1,8 +1,19 @@
-import { useRef, useState, useLayoutEffect, KeyboardEvent } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  KeyboardEvent,
+} from "react";
 
 import ComboBox, { OptionType } from "./ComboBox";
 
-function FilterBox(): JSX.Element {
+type FilterProps = {
+  data: [] | [{ region: string }];
+  setCountries: Function;
+};
+
+function FilterBox({ data, setCountries }: FilterProps): JSX.Element {
   const listbox = useRef<HTMLDivElement>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [visualFocusIndex, setVisualFocusIndex] = useState<number>(-1);
@@ -10,7 +21,17 @@ function FilterBox(): JSX.Element {
   const [visualFocusedOption, setVisualFocusedOption] =
     useState<OptionType>(null);
 
-  const regions: string[] = ["africa", "america", "asia", "europe", "oceania"];
+  const regions: string[] = [...new Set(data.map((obj) => obj.region))];
+
+  // Filter logic
+  useEffect(() => {
+    const filteredData = activeOption
+      ? data.filter((obj) => obj.region === activeOption.innerHTML)
+      : data;
+
+    setCountries(filteredData);
+    console.log(data.map((obj) => obj.region));
+  }, [activeOption]);
 
   /*
    * Helpers
@@ -58,9 +79,6 @@ function FilterBox(): JSX.Element {
     setVisualFocusedOption(option);
     activeOption && activeOption.setAttribute("aria-selected", "false");
     option.setAttribute("aria-selected", "true");
-
-    // TODO: Filter logic
-
     setIsExpanded(false);
   };
 
