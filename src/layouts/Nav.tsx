@@ -2,11 +2,20 @@ import BackButton from "../components/BackButton";
 import SearchBar from "../components/SearchBar";
 import FilterBox from "../components/FilterBox";
 
-function Nav(): JSX.Element {
+type NavProps = {
+  data: [];
+  setCountries: Function;
+};
+
+function Nav({ data, setCountries }: NavProps): JSX.Element {
   return (
     <nav>
       <div className="container ">
-        {location.pathname === "/" ? <HomeNav /> : <StateNav />}
+        {location.pathname === "/" ? (
+          <HomeNav data={data} setCountries={setCountries} />
+        ) : (
+          <StateNav />
+        )}
       </div>
     </nav>
   );
@@ -14,9 +23,9 @@ function Nav(): JSX.Element {
 
 export default Nav;
 
-const HomeNav = (): JSX.Element => (
+const HomeNav = ({ data, setCountries }: NavProps): JSX.Element => (
   <div className="text-2xl md:text-sm pt-12 pb-16 md:pb-12 flex flex-wrap gap-20 md:gap-0 md:justify-between">
-    <SearchBar />
+    <SearchBar data={data} setCountries={setCountries} />
     <FilterBox />
   </div>
 );

@@ -1,17 +1,27 @@
-import React from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
 import SvgIcon from "./SvgIcon";
 
-function SearchBar(): JSX.Element {
-  const handleSubmit = (e: React.SyntheticEvent): void => {
-    e.preventDefault();
-    // TODO: search logic
-  };
+type SearchBarProps = {
+  data: [] | [{ name: { common: string } }];
+  setCountries: Function;
+};
+
+function SearchBar({ data, setCountries }: SearchBarProps): JSX.Element {
+  const [value, setValue] = useState<string>("");
+
+  useEffect(() => {
+    const searchedData = value
+      ? data.filter((obj) => obj?.name.common.includes(value))
+      : data;
+
+    setCountries(searchedData);
+  }, [value]);
 
   return (
     <form
       role="search"
-      onSubmit={handleSubmit}
+      onSubmit={(e: React.SyntheticEvent): void => e.preventDefault()}
       className="bg rounded-md overflow-hidden shadow-sm w-full md:w-[480px] h-24 md:h-14 pl-16 md:pl-7 flex items-center gap-[54px] md:gap-6"
     >
       <SvgIcon className="scale-125 md:scale-75">
@@ -22,7 +32,11 @@ function SearchBar(): JSX.Element {
         <span className="sr-only">Search for a country...</span>
         <input
           type="search"
+          value={value}
           placeholder="Search for a country..."
+          onChange={(e: ChangeEvent<HTMLInputElement>): void =>
+            setValue(e.target.value)
+          }
           className="bg w-full h-full outline-none placeholder-inherit placeholder:font-light"
         />
       </label>
