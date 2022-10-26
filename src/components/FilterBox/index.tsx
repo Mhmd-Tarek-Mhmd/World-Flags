@@ -30,7 +30,6 @@ function FilterBox({ data, setCountries }: FilterProps): JSX.Element {
       : data;
 
     setCountries(filteredData);
-    console.log(data.map((obj) => obj.region));
   }, [activeOption]);
 
   /*
