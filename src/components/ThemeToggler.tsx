@@ -3,7 +3,7 @@ import { useState } from "react";
 import SvgIcon from "./SvgIcon";
 
 function ThemeToggler(): JSX.Element {
-  const [theme, setTheme] = useState(
+  const [theme, setTheme] = useState<string>(
     window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
   );
 
