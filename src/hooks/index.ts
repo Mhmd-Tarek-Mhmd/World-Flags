@@ -1,3 +1,4 @@
 import useFetch from "./useFetch";
+import useChunks from "./useChunks";
 
-export { useFetch };
+export { useFetch, useChunks };
