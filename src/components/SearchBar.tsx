@@ -2,21 +2,10 @@ import { useState, useEffect, ChangeEvent } from "react";
 
 import SvgIcon from "./SvgIcon";
 
-type SearchBarProps = {
-  data: [] | [{ name: { common: string } }];
-  setCountries: Function;
-};
-
-function SearchBar({ data, setCountries }: SearchBarProps): JSX.Element {
+function SearchBar(props: { handleNameSearch: Function }): JSX.Element {
   const [value, setValue] = useState<string>("");
 
-  useEffect(() => {
-    const searchedData = value
-      ? data.filter((obj) => obj?.name.common.includes(value))
-      : data;
-
-    setCountries(searchedData);
-  }, [value]);
+  useEffect(() => props.handleNameSearch(value), [value]);
 
   return (
     <form
@@ -37,7 +26,7 @@ function SearchBar({ data, setCountries }: SearchBarProps): JSX.Element {
           onChange={(e: ChangeEvent<HTMLInputElement>): void =>
             setValue(e.target.value)
           }
-          className="bg w-full h-full outline-none placeholder-inherit placeholder:font-light"
+          className="bg w-full h-full pr-5 outline-none placeholder-inherit placeholder:font-light"
         />
       </label>
     </form>

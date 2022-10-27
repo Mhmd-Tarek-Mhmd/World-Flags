@@ -3,16 +3,25 @@ import SearchBar from "../components/SearchBar";
 import FilterBox from "../components/FilterBox";
 
 type NavProps = {
-  data: [];
-  setCountries: Function;
+  regions: string[];
+  handleNameSearch: Function;
+  handleRegionFilter: Function;
 };
 
-function Nav({ data, setCountries }: NavProps): JSX.Element {
+function Nav({
+  regions,
+  handleNameSearch,
+  handleRegionFilter,
+}: NavProps): JSX.Element {
   return (
     <nav>
       <div className="container ">
         {location.pathname === "/" ? (
-          <HomeNav data={data} setCountries={setCountries} />
+          <HomeNav
+            regions={regions}
+            handleNameSearch={handleNameSearch}
+            handleRegionFilter={handleRegionFilter}
+          />
         ) : (
           <StateNav />
         )}
@@ -23,10 +32,14 @@ function Nav({ data, setCountries }: NavProps): JSX.Element {
 
 export default Nav;
 
-const HomeNav = ({ data, setCountries }: NavProps): JSX.Element => (
+const HomeNav = ({
+  regions,
+  handleNameSearch,
+  handleRegionFilter,
+}: NavProps): JSX.Element => (
   <div className="text-2xl md:text-sm pt-12 pb-16 md:pb-12 flex flex-wrap gap-20 md:gap-0 md:justify-between">
-    <SearchBar data={data} setCountries={setCountries} />
-    <FilterBox data={data} setCountries={setCountries} />
+    <SearchBar handleNameSearch={handleNameSearch} />
+    <FilterBox regions={regions} handleRegionFilter={handleRegionFilter} />
   </div>
 );
 const StateNav = (): JSX.Element => (

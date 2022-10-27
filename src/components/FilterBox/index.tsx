@@ -9,11 +9,11 @@ import {
 import ComboBox, { OptionType } from "./ComboBox";
 
 type FilterProps = {
-  data: [] | [{ region: string }];
-  setCountries: Function;
+  regions: string[];
+  handleRegionFilter: Function;
 };
 
-function FilterBox({ data, setCountries }: FilterProps): JSX.Element {
+function FilterBox({ regions, handleRegionFilter }: FilterProps): JSX.Element {
   const listbox = useRef<HTMLDivElement>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [visualFocusIndex, setVisualFocusIndex] = useState<number>(-1);
@@ -21,16 +21,8 @@ function FilterBox({ data, setCountries }: FilterProps): JSX.Element {
   const [visualFocusedOption, setVisualFocusedOption] =
     useState<OptionType>(null);
 
-  const regions: string[] = [...new Set(data.map((obj) => obj.region))];
-
   // Filter logic
-  useEffect(() => {
-    const filteredData = activeOption
-      ? data.filter((obj) => obj.region === activeOption.innerHTML)
-      : data;
-
-    setCountries(filteredData);
-  }, [activeOption]);
+  useEffect(() => handleRegionFilter(activeOption?.innerHTML), [activeOption]);
 
   /*
    * Helpers
