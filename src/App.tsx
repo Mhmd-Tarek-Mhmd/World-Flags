@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import useFetch from "./hooks/useFetch";
+import { useFetch, useChunks } from "./hooks";
 
 import Header from "./layouts/Header";
+import Main from "./layouts/Main";
 import Nav from "./layouts/Nav";
 
 type Name = { name: { common: string } };
@@ -15,7 +16,20 @@ function App(): JSX.Element {
     "countries",
     sortCountriesByCommonName
   );
-  const [countries, setCountries] = useState<[]>(data);
+  const chunks = useChunks(data, 25);
+  const [patchNum, setPatchNum] = useState<number>(0);
+  const [countries, setCountries] = useState<null | []>(null);
+
+  useEffect((): void => {
+    if (chunks.length) {
+      const countries: {}[] = [];
+      for (let i = 0; i <= patchNum; i++) {
+        countries.push(...(chunks[i] as {}[]));
+      }
+
+      setCountries(countries as []);
+    }
+  }, [chunks, patchNum]);
 
   return (
     <>
