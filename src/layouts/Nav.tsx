@@ -1,3 +1,4 @@
+import { Routes, Route } from "react-router-dom";
 import { ele, func, str } from "../types";
 
 import SearchBar from "../components/SearchBar";
@@ -14,15 +15,20 @@ function Nav({ regions, handleNameSearch, handleRegionFilter }: Props): ele {
   return (
     <nav>
       <div className="container ">
-        {location.pathname === "/" ? (
-          <HomeNav
-            regions={regions}
-            handleNameSearch={handleNameSearch}
-            handleRegionFilter={handleRegionFilter}
+        <Routes>
+          <Route
+            index
+            element={
+              <HomeNav
+                regions={regions}
+                handleNameSearch={handleNameSearch}
+                handleRegionFilter={handleRegionFilter}
+              />
+            }
           />
-        ) : (
-          <StateNav />
-        )}
+
+          <Route path="/:name" element={<StateNav />} />
+        </Routes>
       </div>
     </nav>
   );
