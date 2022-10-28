@@ -3,6 +3,7 @@ import { useFetch, useChunks } from "./hooks";
 import { bool, num, Name, obj, ele, str, Region, arrOrNull } from "./types";
 
 import Nav from "./layouts/Nav";
+import Main from "./layouts/Main";
 import Header from "./layouts/Header";
 
 const sortCountriesByCommonName = (data: []): obj[] =>
@@ -71,6 +72,15 @@ function App(): ele {
           handleNameSearch={handleNameSearch}
           handleRegionFilter={handleRegionFilter}
           regions={[...new Set(data.map((obj: Region) => obj.region))]}
+        />
+      )}
+      {countries && (
+        <Main
+          patchNum={patchNum}
+          chunks={chunks as []}
+          setPatchNum={setPatchNum}
+          countries={countries as []}
+          isFilter={Boolean(FilterData)}
         />
       )}
     </>
