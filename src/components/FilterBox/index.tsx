@@ -1,25 +1,29 @@
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import {
-  useRef,
-  useState,
-  useEffect,
-  useLayoutEffect,
-  KeyboardEvent,
-} from "react";
+  str,
+  num,
+  ele,
+  bool,
+  func,
+  keyEve,
+  divEle,
+  divOrNull,
+} from "../../types";
 
-import ComboBox, { OptionType } from "./ComboBox";
+import ComboBox from "./ComboBox";
 
-type FilterProps = {
-  regions: string[];
-  handleRegionFilter: Function;
-};
+interface Props {
+  regions: str[];
+  handleRegionFilter: func;
+}
 
-function FilterBox({ regions, handleRegionFilter }: FilterProps): JSX.Element {
-  const listbox = useRef<HTMLDivElement>(null);
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [visualFocusIndex, setVisualFocusIndex] = useState<number>(-1);
-  const [activeOption, setActiveOption] = useState<OptionType>(null);
+function FilterBox({ regions, handleRegionFilter }: Props): ele {
+  const listbox = useRef<divEle>(null);
+  const [isExpanded, setIsExpanded] = useState<bool>(false);
+  const [visualFocusIndex, setVisualFocusIndex] = useState<num>(-1);
+  const [activeOption, setActiveOption] = useState<divOrNull>(null);
   const [visualFocusedOption, setVisualFocusedOption] =
-    useState<OptionType>(null);
+    useState<divOrNull>(null);
 
   // Filter logic
   useEffect(() => handleRegionFilter(activeOption?.innerHTML), [activeOption]);
@@ -51,9 +55,9 @@ function FilterBox({ regions, handleRegionFilter }: FilterProps): JSX.Element {
     );
   };
 
-  const handleVisualFocusedViews = (isClean: boolean = false): void => {
+  const handleVisualFocusedViews = (isClean: bool = false): void => {
     if (listbox.current && visualFocusIndex >= 0) {
-      const classes = ["border", "border-1"];
+      const classes: str[] = ["border", "border-1"];
       const prevFocused = listbox.current.querySelector(`.${classes[0]}`);
       const currentFocused = [...listbox.current.children][visualFocusIndex];
 
@@ -65,7 +69,7 @@ function FilterBox({ regions, handleRegionFilter }: FilterProps): JSX.Element {
     }
   };
 
-  const chooseOption = (option: HTMLDivElement): void => {
+  const chooseOption = (option: divEle): void => {
     setActiveOption(option);
     setVisualFocusedOption(option);
     activeOption && activeOption.setAttribute("aria-selected", "false");
@@ -78,9 +82,9 @@ function FilterBox({ regions, handleRegionFilter }: FilterProps): JSX.Element {
    */
 
   // Handle keys interactive
-  const handleKeyDown = (e: KeyboardEvent): void => {
+  const handleKeyDown = (e: keyEve): void => {
     // [1] Handle opening keys
-    const openKeys = ["Enter", " ", "ArrowDown", "ArrowUp"];
+    const openKeys: str[] = ["Enter", " ", "ArrowDown", "ArrowUp"];
     if (!isExpanded && openKeys.includes(e.key)) openByKeyboard();
 
     if (isExpanded) {
@@ -92,12 +96,12 @@ function FilterBox({ regions, handleRegionFilter }: FilterProps): JSX.Element {
         setVisualFocusIndex(regions.length - 1);
 
       // [3] Handle selecting option keys
-      const selectKeys = ["Enter", "Tab", " "];
+      const selectKeys: str[] = ["Enter", "Tab", " "];
       if (selectKeys.includes(e.key) && visualFocusedOption)
-        chooseOption(visualFocusedOption as HTMLDivElement);
+        chooseOption(visualFocusedOption);
 
       // [4] Handle closing keys
-      const closeKeys = ["Escape", "Enter", " ", "Tab"];
+      const closeKeys: str[] = ["Escape", "Enter", " ", "Tab"];
       if (closeKeys.includes(e.key) || (e.altKey && e.key === "ArrowUp"))
         setIsExpanded(false);
     }
@@ -134,10 +138,10 @@ function FilterBox({ regions, handleRegionFilter }: FilterProps): JSX.Element {
 
   // Handle `aria-activedescendant`
   useLayoutEffect((): void => {
-    const handleParentAria = (ariaVal?: string) => {
+    const handleParentAria = (ariaVal?: str): void => {
       if (listbox.current) {
-        const aria = "aria-activedescendant";
-        const parent = listbox.current.parentElement;
+        const aria: str = "aria-activedescendant";
+        const parent = listbox.current.parentElement as divEle;
         ariaVal
           ? parent?.setAttribute(aria, ariaVal)
           : parent?.removeAttribute(aria);
@@ -153,7 +157,9 @@ function FilterBox({ regions, handleRegionFilter }: FilterProps): JSX.Element {
       visualFocusedOption={visualFocusedOption}
       activeOption={activeOption}
       listbox={listbox}
-      handleClick={() => (!isExpanded ? openByClick() : setIsExpanded(false))}
+      handleClick={(): void =>
+        !isExpanded ? openByClick() : setIsExpanded(false)
+      }
       handleKeyDown={handleKeyDown}
       chooseOption={chooseOption}
       regions={regions}

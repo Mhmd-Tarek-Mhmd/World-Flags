@@ -1,21 +1,10 @@
-import StateCard from "../components/StateCard";
-import { FlagsType } from "../components/FlagPicture";
-import PatchingButton, { Patching } from "../components/PatchingButton";
+import { DataPatching, HomeCountry } from "../types";
 
-type CountriesType =
-  | []
-  | [
-      {
-        name: { common: string };
-        population: number;
-        region: string;
-        capital: string[] | undefined;
-        flags: FlagsType;
-      }
-    ];
-interface HomeProps extends Patching {
-  countries: CountriesType;
-  isFilter: boolean;
+import StateCard from "../components/StateCard";
+import PatchingButton from "../components/PatchingButton";
+
+interface HomeProps extends DataPatching {
+  countries: HomeCountry[];
 }
 
 function Home({

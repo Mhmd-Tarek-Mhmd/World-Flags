@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { str, ele } from "../types";
 
 import SvgIcon from "./SvgIcon";
 
-function ThemeToggler(): JSX.Element {
-  const [theme, setTheme] = useState<string>(
+function ThemeToggler(): ele {
+  const [theme, setTheme] = useState<str>(
     window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
   );
 

@@ -1,20 +1,30 @@
-import { LegacyRef, KeyboardEventHandler, MouseEventHandler } from "react";
+import {
+  str,
+  ele,
+  func,
+  bool,
+  divRef,
+  divOrNull,
+  strOrNull,
+  mouseHandler,
+  keyboardHandler,
+  num,
+} from "../../types";
 
 import Option from "./Option";
 import ListBox from "./ListBox";
 import ArrowsIcon from "./ArrowsIcon";
 
-export type OptionType = HTMLDivElement | null;
-type ComboBoxProps = {
-  isExpanded: boolean;
-  visualFocusedOption: OptionType;
-  activeOption: OptionType;
-  listbox: LegacyRef<HTMLDivElement>;
-  handleClick: MouseEventHandler;
-  handleKeyDown: KeyboardEventHandler;
-  chooseOption: Function;
-  regions: string[];
-};
+interface Props {
+  isExpanded: bool;
+  visualFocusedOption: divOrNull;
+  activeOption: divOrNull;
+  listbox: divRef;
+  handleClick: mouseHandler;
+  handleKeyDown: keyboardHandler;
+  chooseOption: func;
+  regions: str[];
+}
 
 function ComboBox({
   isExpanded,
@@ -24,7 +34,7 @@ function ComboBox({
   chooseOption,
   listbox,
   regions,
-}: ComboBoxProps): JSX.Element {
+}: Props): ele {
   return (
     <div
       role="combobox"
@@ -41,7 +51,7 @@ function ComboBox({
 
       <ListBox isExpanded={isExpanded} listbox={listbox}>
         {regions.map(
-          (region, i): JSX.Element => (
+          (region: str, i: num): ele => (
             <Option
               key={region}
               region={region}
@@ -60,7 +70,7 @@ function ComboBox({
 
 export default ComboBox;
 
-const Placeholder = (props: { optionName: string | null }): JSX.Element => (
+const Placeholder = (props: { optionName: strOrNull }): ele => (
   <label id="combobox-label" className="font-light">
     {props.optionName ? (
       <span className="capitalize">{props.optionName}</span>

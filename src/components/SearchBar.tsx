@@ -1,16 +1,21 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect } from "react";
+import { ele, str, submitEve, changeEve, func } from "../types";
 
 import SvgIcon from "./SvgIcon";
 
-function SearchBar(props: { handleNameSearch: Function }): JSX.Element {
-  const [value, setValue] = useState<string>("");
+interface Props {
+  handleNameSearch: func;
+}
 
-  useEffect(() => props.handleNameSearch(value), [value]);
+function SearchBar({ handleNameSearch }: Props): ele {
+  const [value, setValue] = useState<str>("");
+
+  useEffect(() => handleNameSearch(value), [value]);
 
   return (
     <form
       role="search"
-      onSubmit={(e: React.SyntheticEvent): void => e.preventDefault()}
+      onSubmit={(e: submitEve): void => e.preventDefault()}
       className="bg rounded-md overflow-hidden shadow-sm w-full md:w-[480px] h-24 md:h-14 pl-16 md:pl-7 flex items-center gap-[54px] md:gap-6"
     >
       <SvgIcon className="scale-125 md:scale-75">
@@ -18,14 +23,12 @@ function SearchBar(props: { handleNameSearch: Function }): JSX.Element {
       </SvgIcon>
 
       <label className="h-full flex-1">
-        <span className="sr-only">Search for a country...</span>
+        <span className="sr-only">Search for a country</span>
         <input
           type="search"
           value={value}
           placeholder="Search for a country..."
-          onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-            setValue(e.target.value)
-          }
+          onChange={(e: changeEve): void => setValue(e.target.value)}
           className="bg w-full h-full pr-5 outline-none placeholder-inherit placeholder:font-light"
         />
       </label>

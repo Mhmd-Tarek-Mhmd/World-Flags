@@ -1,12 +1,16 @@
-export type FlagsType = { svg: string; png: string };
+import { ele, Flags, str } from "../types";
 
-function FlagPicture(props: { flags: FlagsType; name: string }): JSX.Element {
+interface Props extends Flags {
+  name: str;
+}
+
+function FlagPicture({ flags, name }: Props): ele {
   return (
     <picture className="w-full h-full">
-      <source srcSet={props.flags.svg} type="image/svg+xml" />
+      <source srcSet={flags.svg} type="image/svg+xml" />
       <img
-        src={props.flags?.png}
-        alt={`Flag of ${props.name}`}
+        src={flags.png}
+        alt={`Flag of ${name}`}
         className="w-full h-full object-cover"
       />
     </picture>

@@ -1,12 +1,12 @@
-import { LegacyRef } from "react";
+import { ele, bool, divRef } from "../../types";
 
-type ListBoxProps = {
-  isExpanded: boolean;
-  children: JSX.Element[];
-  listbox: LegacyRef<HTMLDivElement>;
-};
+interface Props {
+  children: ele[];
+  listbox: divRef;
+  isExpanded: bool;
+}
 
-function ListBox({ isExpanded, children, listbox }: ListBoxProps): JSX.Element {
+function ListBox({ isExpanded, children, listbox }: Props): ele {
   return (
     <div
       ref={listbox}

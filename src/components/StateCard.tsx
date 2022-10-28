@@ -1,20 +1,14 @@
-import FlagPicture, { FlagsType } from "./FlagPicture";
+import { ele, Flags, num, obj, Region, str } from "../types";
 
-type StateCardProps = {
-  name: string;
-  population: string;
-  region: string;
-  capital: string;
-  flags: FlagsType;
-};
+import FlagPicture from "./FlagPicture";
 
-function StateCard({
-  name,
-  population,
-  region,
-  capital,
-  flags,
-}: StateCardProps) {
+interface Props extends Flags, Region {
+  name: str;
+  capital: str;
+  population: str;
+}
+
+function StateCard({ name, population, region, capital, flags }: Props): ele {
   return (
     <article className="bg shadow-md overflow-hidden rounded-md grid grid-rows-[320px,352px] md:grid-rows-[160px,176px]">
       <FlagPicture flags={flags} name={name} />
@@ -32,7 +26,7 @@ function StateCard({
 
 export default StateCard;
 
-const Item = (props: { name: string; val: string }): JSX.Element => (
+const Item = (props: { name: str; val: str }): ele => (
   <li>
     <span className="capitalize text-[1.725rem] md:text-sm">
       {props.name}:{" "}
@@ -43,18 +37,14 @@ const Item = (props: { name: string; val: string }): JSX.Element => (
   </li>
 );
 
-const Items = (props: { items: object[] }): JSX.Element => {
-  const keys = props.items.map((item: {}) => Object.keys(item));
+const Items = (props: { items: obj[] }): ele => {
+  const keys: str[] = props.items.map((item: {}) => Object.keys(item)).flat();
 
   return (
     <ul className="grid gap-y-3 md:gap-y-1">
       {keys.map(
-        (key: string[], i: number): JSX.Element => (
-          <Item
-            key={key[0]}
-            name={key[0]}
-            val={Object.values(props.items[i])[0]}
-          />
+        (key: str, i: num): ele => (
+          <Item key={key} name={key} val={Object.values(props.items[i])[0]} />
         )
       )}
     </ul>

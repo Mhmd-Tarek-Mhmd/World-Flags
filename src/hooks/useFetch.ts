@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { arrOrNull, func, str } from "../types";
 
-function useFetch(url: string, storageKey: string, sortDataCB?: Function): [] {
-  const [data, setData] = useState<null | []>(null);
+function useFetch(url: str, storageKey: str, sortDataCB?: func): [] {
+  const [data, setData] = useState<arrOrNull>(null);
 
   useEffect(() => {
     if (localStorage[storageKey]) {
@@ -9,9 +10,9 @@ function useFetch(url: string, storageKey: string, sortDataCB?: Function): [] {
     } else {
       url &&
         fetch(url)
-          .then((data) => data.json())
-          .then((data) => {
-            const sortedData = sortDataCB ? sortDataCB(data) : data;
+          .then((res: Response): Promise<[]> => res.json())
+          .then((data: []): void => {
+            const sortedData: [] = sortDataCB ? sortDataCB(data) : data;
             setData(sortedData);
             localStorage[storageKey] = JSON.stringify(sortedData);
           });

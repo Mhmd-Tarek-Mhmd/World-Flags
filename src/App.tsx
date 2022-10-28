@@ -1,52 +1,50 @@
 import { useState, useEffect } from "react";
-
 import { useFetch, useChunks } from "./hooks";
+import { bool, num, Name, obj, ele, str, Region, arrOrNull } from "./types";
 
-import Header from "./layouts/Header";
-import Main from "./layouts/Main";
 import Nav from "./layouts/Nav";
+import Header from "./layouts/Header";
 
-type Name = { name: { common: string } };
-const sortCountriesByCommonName = (data: []) =>
-  data.sort((a: Name, b: Name) => a.name.common.localeCompare(b.name.common));
+const sortCountriesByCommonName = (data: []): obj[] =>
+  data.sort(
+    (a: Name, b: Name): num => a.name.common.localeCompare(b.name.common)
+  );
 
-function App(): JSX.Element {
-  const data = useFetch(
+function App(): ele {
+  const data: [] = useFetch(
     "https://restcountries.com/v3.1/all",
     "countries",
     sortCountriesByCommonName
   );
-  const chunks = useChunks(data, 25);
-  const [patchNum, setPatchNum] = useState<number>(0);
-  const [countries, setCountries] = useState<null | []>(null);
-  const [FilterData, setFilterData] = useState<null | []>(null);
-  const [isFilterSearch, setIsFilterSearch] = useState<boolean>(false);
+  const chunks: obj[] = useChunks(data, 25);
+  const [patchNum, setPatchNum] = useState<num>(0);
+  const [countries, setCountries] = useState<arrOrNull>(null);
+  const [FilterData, setFilterData] = useState<arrOrNull>(null);
+  const [isFilterSearch, setIsFilterSearch] = useState<bool>(false);
 
   // Helpers
-  const handleNameSearch = (name: string) => {
+  const handleNameSearch = (name: str): void => {
     if (name) {
-      type Obj = { name: { common: string } };
       const arr: [] = FilterData ? FilterData : data;
-      const searchedData = arr.filter((obj: Obj) =>
+      const searchedData: obj[] = arr.filter((obj: Name): {} =>
         obj.name.common.toLocaleLowerCase().includes(name.toLocaleLowerCase())
-      ) as [];
+      );
 
       setIsFilterSearch(true);
-      setCountries(searchedData);
+      setCountries(searchedData as []);
     } else {
       setIsFilterSearch(false);
     }
   };
-  const handleRegionFilter = (region: string) => {
+  const handleRegionFilter = (region: str): void => {
     if (region) {
-      type Obj = { region: string };
-      const filteredData = data.filter(
-        (obj: Obj) => obj.region === region
-      ) as [];
+      const filteredData: obj[] = data.filter(
+        (obj: Region) => obj.region === region
+      );
 
       setIsFilterSearch(true);
-      setFilterData(filteredData);
-      setCountries(filteredData);
+      setFilterData(filteredData as []);
+      setCountries(filteredData as []);
     } else {
       setIsFilterSearch(false);
     }
@@ -54,10 +52,11 @@ function App(): JSX.Element {
 
   // Handle shown countries
   useEffect((): void => {
-    if (chunks.length && !isFilterSearch) {
-      const countries: {}[] = [];
-      for (let i = 0; i <= patchNum; i++) {
-        countries.push(...(chunks[i] as {}[]));
+    if (chunks?.length && !isFilterSearch) {
+      const countries: obj[] = [];
+
+      for (let i: num = 0; i <= patchNum; i++) {
+        countries.push(...(chunks[i] as obj[]));
       }
 
       setCountries(countries as []);
@@ -71,9 +70,7 @@ function App(): JSX.Element {
         <Nav
           handleNameSearch={handleNameSearch}
           handleRegionFilter={handleRegionFilter}
-          regions={[
-            ...new Set(data.map((obj: { region: string }) => obj.region)),
-          ]}
+          regions={[...new Set(data.map((obj: Region) => obj.region))]}
         />
       )}
     </>

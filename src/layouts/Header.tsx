@@ -1,6 +1,8 @@
+import { ele } from "../types";
+
 import ThemeToggler from "../components/ThemeToggler";
 
-function Header(): JSX.Element {
+function Header(): ele {
   return (
     <header className="bg shadow-sm h-[160px] md:h-[80px] flex items-center">
       <div className="container flex justify-between items-center">

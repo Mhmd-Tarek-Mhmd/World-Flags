@@ -1,10 +1,12 @@
-interface Svg {
-  children: JSX.Element | JSX.Element[];
-  viewBox?: string;
-  className?: string;
+import { str, ele } from "../types";
+
+interface Props {
+  viewBox?: str;
+  className?: str;
+  children: ele | ele[];
 }
 
-function SvgIcon({ children, ...props }: Svg): JSX.Element {
+function SvgIcon({ children, ...props }: Props): ele {
   return (
     <svg
       aria-hidden="true"

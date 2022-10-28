@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { num, obj } from "../types";
 
 /**
  * useChunks or Split into chunks
@@ -7,19 +8,19 @@ import { useState, useEffect } from "react";
  * @returns Array of chunks
  */
 
-function useChunks(data: [], n: number): {}[] {
-  const [chunks, setChunks] = useState<[] | {}[]>([]);
+function useChunks(data: obj[], n: num): obj[] {
+  const [chunks, setChunks] = useState<[] | obj[]>([]);
 
   useEffect(() => {
     if (data) {
-      for (let i = 0; i < data?.length; i += n) {
-        const chunk = data.slice(i, i + n);
-        setChunks((prev) => [...prev, chunk as {}]);
+      for (let i: num = 0; i < data?.length; i += n) {
+        const chunk: obj[] = data.slice(i, i + n);
+        setChunks((prev) => [...prev, chunk]);
       }
     }
   }, [data]);
 
-  return chunks;
+  return chunks as obj[];
 }
 
 export default useChunks;

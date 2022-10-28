@@ -1,6 +1,8 @@
+import { ele } from "../types";
+
 import SvgIcon from "./SvgIcon";
 
-function BackButton(): JSX.Element {
+function BackButton(): ele {
   const handleClick = (): void => {
     // TODO: back logic
   };
