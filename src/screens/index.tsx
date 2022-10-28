@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { ele, DataPatching, HomeCountry, DetailState } from "../types";
 
 import Home from "./Home";
@@ -18,24 +18,22 @@ function Screens({
   isFilter,
 }: Props): ele {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          index
-          element={
-            <Home
-              countries={countries}
-              chunks={chunks}
-              patchNum={patchNum}
-              setPatchNum={setPatchNum}
-              isFilter={isFilter}
-            />
-          }
-        />
+    <Routes>
+      <Route
+        index
+        element={
+          <Home
+            countries={countries}
+            chunks={chunks}
+            patchNum={patchNum}
+            setPatchNum={setPatchNum}
+            isFilter={isFilter}
+          />
+        }
+      />
 
-        <Route path="/:name" element={<State states={data} />} />
-      </Routes>
-    </BrowserRouter>
+      <Route path="/:name" element={<State states={data} />} />
+    </Routes>
   );
 }
 
