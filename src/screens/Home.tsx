@@ -20,7 +20,7 @@ function Home({
   );
 
   return (
-    <section>
+    <div role="region">
       {countries.length ? (
         <>
           <div className="grid mb-10 gap-20 md:gap-10 grid-cols-[minmax(0,528px)] md:grid-cols-[repeat(auto-fill,minmax(264px,1fr))] justify-center md:justify-start">
@@ -50,7 +50,7 @@ function Home({
           No countries found
         </p>
       )}
-    </section>
+    </div>
   );
 }
 

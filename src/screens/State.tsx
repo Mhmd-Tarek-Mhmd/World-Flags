@@ -42,7 +42,7 @@ function State({ states }: Props): ele {
     .map((state: Name): str => state.name.common);
 
   return (
-    <section>
+    <div role="region">
       <article className="md:grid md:grid-cols-[minmax(0,560px),minmax(0,570px)] md:gap-5 md:justify-between md:items-center">
         <FlagPicture flags={flags} name={commonName} />
 
@@ -94,7 +94,7 @@ function State({ states }: Props): ele {
           </div>
         </div>
       </article>
-    </section>
+    </div>
   );
 }
 
