@@ -23,6 +23,8 @@ import {
   HomeCountry,
   CardState,
   DataPatching,
+  DetailState,
+  DetailStateFormat,
 } from "./app";
 
 export type {
@@ -50,4 +52,6 @@ export type {
   HomeCountry,
   CardState,
   DataPatching,
+  DetailState,
+  DetailStateFormat,
 };

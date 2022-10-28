@@ -1,13 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ele, DataPatching, HomeCountry } from "../types";
+import { ele, DataPatching, HomeCountry, DetailState } from "../types";
 
 import Home from "./Home";
+import State from "./State";
 
 interface Props extends DataPatching {
   countries: HomeCountry[];
+  data: DetailState[];
 }
 
 function Screens({
+  data,
   countries,
   chunks,
   patchNum,
@@ -29,6 +32,8 @@ function Screens({
             />
           }
         />
+
+        <Route path="/:name" element={<State states={data} />} />
       </Routes>
     </BrowserRouter>
   );

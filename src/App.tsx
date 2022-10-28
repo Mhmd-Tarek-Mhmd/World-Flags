@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useFetch, useChunks } from "./hooks";
 import { bool, num, Name, obj, ele, str, Region, arrOrNull } from "./types";
-import { sortCountriesByCommonName } from "./utils/helpers";
+import { sortCountriesByCommonName, uniqueArr } from "./utils/helpers";
 
 import Nav from "./layouts/Nav";
 import Main from "./layouts/Main";
@@ -67,11 +67,12 @@ function App(): ele {
         <Nav
           handleNameSearch={handleNameSearch}
           handleRegionFilter={handleRegionFilter}
-          regions={[...new Set(data.map((obj: Region) => obj.region))]}
+          regions={uniqueArr(data.map((obj: Region) => obj.region))}
         />
       )}
-      {countries && (
+      {data && countries && (
         <Main
+          data={data}
           patchNum={patchNum}
           chunks={chunks as []}
           setPatchNum={setPatchNum}

@@ -29,3 +29,24 @@ export interface DataPatching {
   isFilter: bool;
   setPatchNum: func;
 }
+
+export interface DetailState extends Flags, Capital, Population, Region {
+  tld: [];
+  cca3: str;
+  borders: [];
+  languages: {};
+  currencies: {};
+  subregion: str;
+  name: { common: str; nativeName: { common: str } };
+}
+export interface DetailStateFormat extends Flags, Region {
+  tld: str;
+  borders: [];
+  capital: str;
+  subregion: str;
+  languages: str;
+  population: str;
+  currencies: str;
+  nativeName: str;
+  commonName: str;
+}
