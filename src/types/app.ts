@@ -18,6 +18,11 @@ export type Population = {
 };
 
 export interface HomeCountry extends Name, Flags, Region, Capital, Population {}
+export interface CardState extends Flags, Region {
+  name: str;
+  capital: str;
+  population: str;
+}
 export interface DataPatching {
   chunks: obj[];
   patchNum: num;

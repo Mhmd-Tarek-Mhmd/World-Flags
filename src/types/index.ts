@@ -21,6 +21,7 @@ import {
   Capital,
   Population,
   HomeCountry,
+  CardState,
   DataPatching,
 } from "./app";
 
@@ -47,5 +48,6 @@ export type {
   Capital,
   Population,
   HomeCountry,
+  CardState,
   DataPatching,
 };

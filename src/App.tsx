@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react";
 import { useFetch, useChunks } from "./hooks";
 import { bool, num, Name, obj, ele, str, Region, arrOrNull } from "./types";
+import { sortCountriesByCommonName } from "./utils/helpers";
 
 import Nav from "./layouts/Nav";
 import Main from "./layouts/Main";
 import Header from "./layouts/Header";
-
-const sortCountriesByCommonName = (data: []): obj[] =>
-  data.sort(
-    (a: Name, b: Name): num => a.name.common.localeCompare(b.name.common)
-  );
 
 function App(): ele {
   const data: [] = useFetch(
