@@ -37,7 +37,7 @@ function State({ states }: Props): ele {
 
   const neighbors: str[] = states
     .filter(
-      (state: { cca3: str }): bool => (borders as str[]).includes(state.cca3)
+      (state: { cca3: str }): bool => (borders as str[])?.includes(state.cca3)
     )
     .map((state: Name): str => state.name.common);
 
@@ -72,10 +72,10 @@ function State({ states }: Props): ele {
           </div>
 
           {/* Borders */}
-          <div className="grid md:flex gap-11 md:gap-4">
+          <div className="grid md:flex gap-11 md:gap-4 relative">
             <h3 className="text-[1.962rem] md:text-base">Border Countries:</h3>
-            <div className="grid gap-5 md:gap-2 grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(100px,max-content))] md:flex-1">
-              {neighbors &&
+            <div className="grid gap-5 md:gap-2 grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(100px,max-content))] md:flex-1 md:items-center">
+              {neighbors.length ? (
                 neighbors.map((neighbor: str) => (
                   <Link
                     key={neighbor}
@@ -84,7 +84,12 @@ function State({ states }: Props): ele {
                   >
                     {neighbor}
                   </Link>
-                ))}
+                ))
+              ) : (
+                <span className="md:font-light md:text-sm absolute md:static top-3 left-72">
+                  None
+                </span>
+              )}
             </div>
           </div>
         </div>
