@@ -4,5 +4,5 @@
 
 ## Links
 
-- Live Site [URL](world-states.netlify.app)
+- Live Site [URL](https://world-states.netlify.app)
 - Solution [URL](https://www.frontendmentor.io/solutions/world-flags-iCAOcufP_Z)
