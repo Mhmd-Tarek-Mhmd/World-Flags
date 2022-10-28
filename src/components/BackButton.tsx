@@ -1,16 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { ele } from "../types";
 
 import SvgIcon from "./SvgIcon";
 
 function BackButton(): ele {
-  const handleClick = (): void => {
-    // TODO: back logic
-  };
+  const navigate = useNavigate();
 
   return (
     <button
       aria-label="Back to home page"
-      onClick={handleClick}
+      onClick={(): void => navigate("/")}
       className="bg w-52 md:w-32 h-16 md:h-10 rounded-md shadow-xy-md flex justify-center items-center gap-[22px] md:gap-3"
     >
       <SvgIcon className="scale-[1.4] md:scale-75">
