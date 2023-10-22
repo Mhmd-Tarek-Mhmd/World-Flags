@@ -22,6 +22,7 @@ function ThemeToggler(): ele {
     <button
       type="button"
       onClick={toggleTheme}
+      title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
       className=" hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg p-2.5 md:p-1.5"
     >
