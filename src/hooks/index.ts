@@ -1,4 +1,2 @@
-import useFetch from "./useFetch";
-import useChunks from "./useChunks";
-
-export { useFetch, useChunks };
+export { default as useTheme } from "./useTheme";
+export { default as useDidUpdateEffect } from "./useDidUpdateEffect";

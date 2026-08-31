@@ -1,12 +1,10 @@
-import { str, ele } from "../types";
-
-interface Props {
-  viewBox?: str;
-  className?: str;
-  children: ele | ele[];
+interface Props extends React.SVGProps<SVGSVGElement> {
+  viewBox?: string;
+  className?: string;
+  children: JSX.Element | JSX.Element[];
 }
 
-function SvgIcon({ children, ...props }: Props): ele {
+function SvgIcon({ children, ...props }: Props) {
   return (
     <svg
       aria-hidden="true"

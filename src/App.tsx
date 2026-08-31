@@ -1,84 +1,35 @@
-import { useState, useEffect } from "react";
-import { useFetch, useChunks } from "./hooks";
-import { bool, num, Name, obj, ele, str, Region, arrOrNull } from "./types";
-import { sortCountriesByCommonName, uniqueArr } from "./utils/helpers";
+import { useState } from "react";
 
-import Nav from "./layouts/Nav";
-import Main from "./layouts/Main";
-import Header from "./layouts/Header";
+import { Country } from "./utils/types";
 
-function App(): ele {
-  const data: [] = useFetch(
-    "https://restcountries.com/v3.1/all",
-    "countries",
-    sortCountriesByCommonName
-  );
-  const chunks: obj[] = useChunks(data, 25);
-  const [patchNum, setPatchNum] = useState<num>(0);
-  const [countries, setCountries] = useState<arrOrNull>(null);
-  const [FilterData, setFilterData] = useState<arrOrNull>(null);
-  const [isFilterSearch, setIsFilterSearch] = useState<bool>(false);
+import { ThemeToggler } from "./components";
+import { CountryView, CountriesView } from "./views";
 
-  // Helpers
-  const handleNameSearch = (name: str): void => {
-    if (name) {
-      const arr: [] = FilterData ? FilterData : data;
-      const searchedData: obj[] = arr.filter((obj: Name): {} =>
-        obj.name.common.toLocaleLowerCase().includes(name.toLocaleLowerCase())
-      );
-
-      setIsFilterSearch(true);
-      setCountries(searchedData as []);
-    } else {
-      setIsFilterSearch(false);
-    }
-  };
-  const handleRegionFilter = (region: str): void => {
-    if (region) {
-      const filteredData: obj[] = data.filter(
-        (obj: Region) => obj.region === region
-      );
-
-      setIsFilterSearch(true);
-      setFilterData(filteredData as []);
-      setCountries(filteredData as []);
-    } else {
-      setIsFilterSearch(false);
-    }
-  };
-
-  // Handle shown countries
-  useEffect((): void => {
-    if (chunks?.length && !isFilterSearch) {
-      const countries: obj[] = [];
-
-      for (let i: num = 0; i <= patchNum; i++) {
-        countries.push(...(chunks[i] as obj[]));
-      }
-
-      setCountries(countries as []);
-    }
-  }, [chunks, patchNum, isFilterSearch]);
+function App() {
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
 
   return (
     <>
-      <Header />
-      {data && (
-        <Nav
-          handleNameSearch={handleNameSearch}
-          handleRegionFilter={handleRegionFilter}
-          regions={uniqueArr(data.map((obj: Region) => obj.region))}
-        />
-      )}
-      {data && countries && (
-        <Main
-          data={data}
-          patchNum={patchNum}
-          chunks={chunks as []}
-          setPatchNum={setPatchNum}
-          countries={countries as []}
-          isFilter={Boolean(FilterData)}
-        />
+      {/* Header */}
+      <header className="bg shadow-sm h-[160px] md:h-[80px] flex items-center">
+        <div className="container flex justify-between items-center">
+          <ThemeToggler />
+          <h1 className="text-3xl md:text-2xl cursor-default">World Flags</h1>
+        </div>
+      </header>
+
+      {/* Main */}
+      {selectedCountry ? (
+        <main className="container py-6">
+          <CountryView
+            country={selectedCountry}
+            onBack={() => setSelectedCountry(null)}
+          />
+        </main>
+      ) : (
+        <main className="container py-10 xl:py-20">
+          <CountriesView onSelectCountry={setSelectedCountry} />
+        </main>
       )}
     </>
   );
