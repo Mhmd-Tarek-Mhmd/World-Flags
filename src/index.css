@@ -48,3 +48,9 @@
       0 -2px 4px -2px rgb(0 0 0 / 0.1);
   }
 }
+
+@media (max-width: 620px) {
+  html {
+    font-size: 11px;
+  }
+}

@@ -57,7 +57,7 @@ export default function CountriesView({
       <div className="text-2xl md:text-sm flex flex-wrap gap-6 md:justify-between items-center mb-10">
         <SearchBar
           value={filters.query}
-          rootClassName="flex-1 min-w-[400px]"
+          rootClassName="flex-1"
           placeholder="Search for a country..."
           onChange={(e) =>
             setFilters((prev) => ({
