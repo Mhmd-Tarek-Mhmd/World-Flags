@@ -54,7 +54,7 @@ export default function CountriesView({
   return (
     <>
       {/* Filters */}
-      <div className="text-2xl md:text-sm flex flex-wrap gap-6 md:justify-between items-center mb-10">
+      <div className="text-2xl md:text-sm grid md:flex gap-6 md:justify-between items-center mb-10">
         <SearchBar
           value={filters.query}
           rootClassName="flex-1"
@@ -67,7 +67,7 @@ export default function CountriesView({
           }
         />
         <Select<RegionOption, false>
-          placeholder='Select Region'
+          placeholder="Select Region"
           className="theme-field flex-1 w-100 min-w-[200px] md:max-w-md"
           classNamePrefix="country-select"
           classNames={{
