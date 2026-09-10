@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDidUpdateEffect, useTheme } from "../hooks";
+import { useTheme } from "../hooks";
+import { useEffect, useState } from "react";
 
 import { Country } from "../utils/types";
 import { fetchCountries } from "../utils/api";
@@ -27,7 +27,7 @@ export default function CountriesView({
   const [countries, setCountries] = useState<Country[] | null>(null);
 
   // Fetch countries on initial render and when offset changes
-  useDidUpdateEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
 
     (async () => {
